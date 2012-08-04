@@ -31,6 +31,7 @@ namespace Checkers
             Board.WhitePieceColor = Colors.Yellow;
             Board.BlackPieceColor = Colors.Blue;
             Board.KingImage = 0;
+            Board.PieceMargin = Board.FieldSize / 10;
 
             Board.NewBoard();
         }

@@ -15,6 +15,7 @@ namespace Checkers
         static public Color WhitePieceColor { get; set; }
         static public Color BlackPieceColor { get; set; }
         static public int KingImage { get; set; }
+        public static double PieceMargin { get; set; }
 
         static public Canvas BoardCanvas { get; set; }
         static public Field[][] Fields { get; set; }
@@ -71,9 +72,9 @@ namespace Checkers
                 piece.Drawable = new Ellipse
                                      {
                                          Fill = new SolidColorBrush(piece.IsBlack ? BlackPieceColor : WhitePieceColor),
-                                         Margin = new Thickness(piece.Field.DisplayX, piece.Field.DisplayY, 0, 0),
-                                         Height = FieldSize,
-                                         Width = FieldSize,
+                                         Margin = new Thickness(piece.Field.DisplayX + PieceMargin, piece.Field.DisplayY + PieceMargin, 0, 0),
+                                         Height = FieldSize - PieceMargin * 2,
+                                         Width = FieldSize - PieceMargin * 2,
                                          StrokeThickness = 0
                                      };
 
