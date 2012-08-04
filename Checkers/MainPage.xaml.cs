@@ -39,5 +39,11 @@ namespace Checkers
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
+
+        private void BoardCanvasTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var point = e.GetPosition(boardCanvas);
+            Board.Clicked(point.X, point.Y);
+        }
     }
 }

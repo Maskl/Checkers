@@ -72,14 +72,21 @@ namespace Checkers
                 piece.Drawable = new Ellipse
                                      {
                                          Fill = new SolidColorBrush(piece.IsBlack ? BlackPieceColor : WhitePieceColor),
-                                         Margin = new Thickness(piece.Field.DisplayX + PieceMargin, piece.Field.DisplayY + PieceMargin, 0, 0),
                                          Height = FieldSize - PieceMargin * 2,
                                          Width = FieldSize - PieceMargin * 2,
                                          StrokeThickness = 0
                                      };
 
+                piece.SetPosition(piece.Field);
                 BoardCanvas.Children.Add(piece.Drawable);
             }
+        }
+
+
+        public static void Clicked(double x, double y)
+        {
+            var field = Fields[(int)(y / FieldSize)][(int)(x / FieldSize)];
+            Pieces[0].SetPosition(field);
         }
     }
 }

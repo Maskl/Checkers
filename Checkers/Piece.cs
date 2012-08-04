@@ -1,3 +1,4 @@
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Shapes;
 
 namespace Checkers
@@ -17,6 +18,16 @@ namespace Checkers
             IsKing = false;
             Field = OldField = Board.Fields[y][x];
             AnimStep = 0;
+        }
+
+        public void SetPosition(Field field, double? x = null, double? y = null)
+        {
+            Field = field;
+
+            if (x != null && y != null)
+                Drawable.Margin = new Thickness((double)x + Board.PieceMargin, (double)y + Board.PieceMargin, 0, 0);
+            else
+                Drawable.Margin = new Thickness(field.DisplayX + Board.PieceMargin, field.DisplayY + Board.PieceMargin, 0, 0);
         }
     }
 }
