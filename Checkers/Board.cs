@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,10 +13,14 @@ namespace Checkers
         static public double FieldSize { get; set; }
         static public Color LightFieldColor { get; set; }
         static public Color DarkFieldColor { get; set; }
+        static public Color SelectedFieldColor { get; set; }
+        static public Color HighlightedFieldColor { get; set; }
         static public Color WhitePieceColor { get; set; }
         static public Color BlackPieceColor { get; set; }
         static public int KingImage { get; set; }
         public static double PieceMargin { get; set; }
+
+        
 
         static public Canvas BoardCanvas { get; set; }
         static public Field[][] Fields { get; set; }
@@ -82,11 +87,43 @@ namespace Checkers
             }
         }
 
+        public static void SelectField(Field fieldToSelect)
+        {
+            for (var y = 0; y < 8; y++)
+            {
+                for (var x = 0; x < 8; x++)
+                {
+                    var field = Fields[y][x];
+                    field.Deselect();
+                }
+            }
+
+            fieldToSelect.Select();
+        }
+
+        public static void HighlightFields(List<Field> fieldsToHighlight)
+        {
+            for (var y = 0; y < 8; y++)
+            {
+                for (var x = 0; x < 8; x++)
+                {
+                    var field = Fields[y][x];
+                    field.Dehighlight();
+                }
+            }
+
+            foreach (var field in fieldsToHighlight)
+            {
+                field.Highlight();
+            }
+        }
+
+
 
         public static void Clicked(double x, double y)
         {
             var field = Fields[(int)(y / FieldSize)][(int)(x / FieldSize)];
-            Pieces[0].SetPosition(field);
+            GameManager.FieldTapped(field);
         }
     }
 }

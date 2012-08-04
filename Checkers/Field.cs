@@ -1,3 +1,6 @@
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
 namespace Checkers
@@ -17,6 +20,27 @@ namespace Checkers
             Y = y;
             DisplayX = Board.BoardSize / 8 * x;
             DisplayY = Board.BoardSize / 8 * y;
+        }
+
+        public void Deselect()
+        {
+            Drawable.Fill = new SolidColorBrush((X + Y) % 2 == 1 ? Board.DarkFieldColor : Board.LightFieldColor);
+        }
+
+        public void Select()
+        {
+            Drawable.Fill = new SolidColorBrush(Board.SelectedFieldColor);
+        }
+
+        public void Dehighlight()
+        {
+            Drawable.StrokeThickness = 0;
+        }
+
+        public void Highlight()
+        {
+            Drawable.StrokeThickness = 3;
+            Drawable.Stroke = new SolidColorBrush(Board.HighlightedFieldColor);
         }
     }
 }
