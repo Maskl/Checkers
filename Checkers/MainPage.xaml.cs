@@ -28,7 +28,7 @@ namespace Checkers
             Board.FieldSize = Board.BoardSize / 8;
             Board.LightFieldColor = Colors.Wheat;
             Board.DarkFieldColor = Colors.DarkGoldenrod;
-            Board.SelectedFieldColor = Colors.Orange;
+            Board.SelectedFieldColor = Colors.Maroon;
             Board.HighlightedFieldColor = Colors.Green;
             Board.WhitePieceColor = Colors.Yellow;
             Board.BlackPieceColor = Colors.Blue;

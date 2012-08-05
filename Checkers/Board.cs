@@ -101,7 +101,7 @@ namespace Checkers
             fieldToSelect.Select();
         }
 
-        public static void HighlightFields(List<Field> fieldsToHighlight)
+        public static void DehighlightFields()
         {
             for (var y = 0; y < 8; y++)
             {
@@ -111,14 +111,15 @@ namespace Checkers
                     field.Dehighlight();
                 }
             }
-
-            foreach (var field in fieldsToHighlight)
-            {
-                field.Highlight();
-            }
         }
 
+        static public Field GetField(int x, int y)
+        {
+            if (x < 0 || x > 7 || y < 0 || y > 7)
+                return null;
 
+            return Fields[y][x];
+        }
 
         public static void Clicked(double x, double y)
         {

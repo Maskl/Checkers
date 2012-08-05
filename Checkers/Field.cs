@@ -1,3 +1,4 @@
+using System.Linq;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -22,6 +23,11 @@ namespace Checkers
             DisplayY = Board.BoardSize / 8 * y;
         }
 
+        public bool IsUsableInGame()
+        {
+            return (X + Y) % 2 == 1;
+        }
+
         public void Deselect()
         {
             Drawable.Fill = new SolidColorBrush((X + Y) % 2 == 1 ? Board.DarkFieldColor : Board.LightFieldColor);
@@ -41,6 +47,11 @@ namespace Checkers
         {
             Drawable.StrokeThickness = 3;
             Drawable.Stroke = new SolidColorBrush(Board.HighlightedFieldColor);
+        }
+
+        public Piece GetPieceOnField()
+        {
+            return Board.Pieces.FirstOrDefault(piece => piece.Field == this);
         }
     }
 }
