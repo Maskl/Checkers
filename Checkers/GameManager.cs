@@ -31,12 +31,14 @@ namespace Checkers
             if (JumpableFields.Contains(field))
             {
                 SelectedPiece.SetPosition(field);
+                NextTurn();
                 return;
             }
            
             if (MovableFields.Contains(field))
             {
                 SelectedPiece.SetPosition(field);
+                NextTurn();
                 return;
             }
 
@@ -46,7 +48,17 @@ namespace Checkers
             }
         }
 
-        private static void SelectPiece(Piece piece)
+        static private void NextTurn()
+        {
+            Board.DeselectFields();
+            Board.DehighlightFields();
+            SelectedPiece = null;
+            JumpableFields.Clear();
+            MovableFields.Clear();
+            BlackTurn = !BlackTurn;
+        }
+
+        static private void SelectPiece(Piece piece)
         {
             SelectedPiece = piece;
             Board.SelectField(piece.Field);

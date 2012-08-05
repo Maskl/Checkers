@@ -113,6 +113,18 @@ namespace Checkers
             }
         }
 
+        public static void DeselectFields()
+        {
+            for (var y = 0; y < 8; y++)
+            {
+                for (var x = 0; x < 8; x++)
+                {
+                    var field = Fields[y][x];
+                    field.Deselect();
+                }
+            }
+        }
+
         static public Field GetField(int x, int y)
         {
             if (x < 0 || x > 7 || y < 0 || y > 7)
