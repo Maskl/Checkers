@@ -38,10 +38,8 @@ namespace Checkers
             Board.KingImage = 0;
             Board.PieceMargin = Board.FieldSize / 10;
 
-            OnGameStartQuestions();
-
             GameManager.Page = this;
-            GameManager.Start();
+            OnGameStartQuestions();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -69,10 +67,7 @@ namespace Checkers
             await dialog.ShowAsync();
 
             if (_shouldStartNewGame)
-            {
                 OnGameStartQuestions();
-                GameManager.NewGame();
-            }
         }
 
         private bool _shouldStartNewGame;
@@ -104,6 +99,8 @@ namespace Checkers
 
                 await dialog.ShowAsync();
             }
+
+            GameManager.Start();
         }
 
         private async void ColorsButton_OnClick(object sender, RoutedEventArgs e)

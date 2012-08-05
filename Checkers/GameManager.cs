@@ -30,6 +30,8 @@ namespace Checkers
 
             Board.NewBoard();
             SelectAllCurrentPlayerPieces();
+            if (IsGameVersusAI && IsPlayerBlack != BlackTurn)
+                AITurn();
         }
 
         static public void FieldTapped(Field field)
@@ -88,7 +90,10 @@ namespace Checkers
             BlackTurn = !BlackTurn;
             SelectAllCurrentPlayerPieces();
             if (SelectableFields.Count == 0)
+            {
                 EndOfGame();
+                return;
+            }
 
             if (Board.Pieces.Any(piece => !piece.IsKing))
                 DrawIterator = 0;
@@ -98,6 +103,27 @@ namespace Checkers
             if (DrawIterator >= 30)
             {
                 DrawGame();
+                return;
+            }
+
+            if (IsGameVersusAI && IsPlayerBlack != BlackTurn)
+                AITurn();
+        }
+
+        private static void AITurn()
+        {
+            var rand = new Random();
+            FieldTapped(SelectableFields[rand.Next(SelectableFields.Count)]);
+            if (JumpableFields.Count > 0)
+            {
+                while (IsPlayerBlack != BlackTurn)
+                {
+                    FieldTapped(JumpableFields[rand.Next(JumpableFields.Count)]);
+                }
+            }
+            else
+            {
+                FieldTapped(MovableFields[rand.Next(MovableFields.Count)]);
             }
         }
 
@@ -107,7 +133,6 @@ namespace Checkers
             await dialog.ShowAsync();
 
             Page.OnGameStartQuestions();
-            NewGame();
         }
 
         private static async void EndOfGame()
@@ -118,13 +143,13 @@ namespace Checkers
             {
                 if (BlackTurn && IsPlayerBlack)
                 {
-                    msg = "Computer won that game. Try again.";
-                    tit = "Loser!";
+                    msg = "Congratulation, you won with computer!";
+                    tit = "Winner!";
                 }
                 else
                 {
-                    msg = "Congratulation, you won with computer!";
-                    tit = "Winner!";
+                    msg = "Computer won that game. Try again.";
+                    tit = "Loser!";
                 }
             }
             else
@@ -145,7 +170,6 @@ namespace Checkers
             await dialog.ShowAsync();
 
             Page.OnGameStartQuestions();
-            NewGame();
         }
 
         private static void SelectAllCurrentPlayerPieces()
@@ -262,11 +286,6 @@ namespace Checkers
             {
                 JumpableFields.Add(jumpField);
             }
-        }
-
-        public static void NewGame()
-        {
-            Start();
         }
 
         public static void SetPvP()
