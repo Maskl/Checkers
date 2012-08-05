@@ -110,19 +110,23 @@ namespace Checkers
                 AITurn();
         }
 
-        private static void AITurn()
+        private static async void AITurn()
         {
+            await Task.Delay(100);
+
             var rand = new Random();
             FieldTapped(SelectableFields[rand.Next(SelectableFields.Count)]);
             if (JumpableFields.Count > 0)
             {
                 while (IsPlayerBlack != BlackTurn)
                 {
+                    await Task.Delay(500);
                     FieldTapped(JumpableFields[rand.Next(JumpableFields.Count)]);
                 }
             }
             else
             {
+                await Task.Delay(500);
                 FieldTapped(MovableFields[rand.Next(MovableFields.Count)]);
             }
         }
@@ -141,7 +145,7 @@ namespace Checkers
             string tit;
             if (IsGameVersusAI)
             {
-                if (BlackTurn && IsPlayerBlack)
+                if (BlackTurn != IsPlayerBlack)
                 {
                     msg = "Congratulation, you won with computer!";
                     tit = "Winner!";
