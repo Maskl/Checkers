@@ -12,6 +12,7 @@ namespace Checkers
         static public Piece SelectedPiece;
         static public List<Field> JumpableFields;
         static public List<Field> MovableFields;
+        static public List<Field> SelectableFields;
 
         static public void Start()
         {
@@ -19,6 +20,7 @@ namespace Checkers
             SelectedPiece = null;
             MovableFields = new List<Field>();
             JumpableFields = new List<Field>();
+            SelectableFields = new List<Field>();
 
             Board.NewBoard();
             SelectAllCurrentPlayerPieces();
@@ -53,15 +55,15 @@ namespace Checkers
                 Board.SelectField(SelectedPiece.Field);
                 return;
             }
-           
-            if (MovableFields.Contains(field))
+
+            if (MovableFields.Contains(field) && JumpableFields.Count == 0)
             {
                 SelectedPiece.SetPosition(field);
                 NextTurn();
                 return;
             }
 
-            foreach (var piece in Board.Pieces.Where(piece => piece.Field == field && piece.IsBlack == BlackTurn))
+            foreach (var piece in Board.Pieces.Where(piece => piece.Field == field && piece.IsBlack == BlackTurn && SelectableFields.Contains(piece.Field)))
             {
                 SelectPiece(piece);
             }
@@ -80,6 +82,8 @@ namespace Checkers
 
         private static void SelectAllCurrentPlayerPieces()
         {
+            SelectableFields.Clear();
+
             var fieldsFromWhichCanMove = new List<Field>();
             var fieldsFromWhichCanJump = new List<Field>();
 
@@ -110,6 +114,7 @@ namespace Checkers
                 foreach (var fieldFromWhichCanJump in fieldsFromWhichCanJump)
                 {
                     fieldFromWhichCanJump.Highlight();
+                    SelectableFields.Add(fieldFromWhichCanJump);
                 }
                 return;
             }
@@ -119,6 +124,7 @@ namespace Checkers
                 foreach (var fieldFromWhichCanMove in fieldsFromWhichCanMove)
                 {
                     fieldFromWhichCanMove.Highlight();
+                    SelectableFields.Add(fieldFromWhichCanMove);
                 }
             }
         }
