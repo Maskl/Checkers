@@ -17,11 +17,13 @@ namespace Checkers
         static public List<Field> SelectableFields { get; set; }
         static public bool IsGameVersusAI { get; set; }
         static public bool IsPlayerBlack { get; set; }
+        static public int DrawIterator { get; set; }
 
         static public void Start()
         {
             BlackTurn = true;
             SelectedPiece = null;
+            DrawIterator = 0;
             MovableFields = new List<Field>();
             JumpableFields = new List<Field>();
             SelectableFields = new List<Field>();
@@ -40,6 +42,7 @@ namespace Checkers
                 var enemy = Board.Fields[field.Y + (SelectedPiece.Field.Y - field.Y) / 2][field.X + (SelectedPiece.Field.X - field.X) / 2].GetPieceOnField();
                 enemy.Destroy();
                 Board.Pieces.Remove(enemy);
+                DrawIterator = 0;
 
                 SelectedPiece.SetPosition(field);
 
@@ -86,6 +89,25 @@ namespace Checkers
             SelectAllCurrentPlayerPieces();
             if (SelectableFields.Count == 0)
                 EndOfGame();
+
+            if (Board.Pieces.Any(piece => !piece.IsKing))
+                DrawIterator = 0;
+            else
+                DrawIterator++;
+
+            if (DrawIterator >= 30)
+            {
+                DrawGame();
+            }
+        }
+
+        private static async void DrawGame()
+        {
+            var dialog = new MessageDialog("Probably nobody will win this game.", "Draw!");
+            await dialog.ShowAsync();
+
+            Page.OnGameStartQuestions();
+            NewGame();
         }
 
         private static async void EndOfGame()
