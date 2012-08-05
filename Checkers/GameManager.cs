@@ -32,7 +32,25 @@ namespace Checkers
             if (JumpableFields.Contains(field))
             {
                 SelectedPiece.SetPosition(field);
-                NextTurn();
+
+                // kill
+
+                MovableFields.Clear();
+                JumpableFields.Clear();
+                CheckAllPossibleMoveAndJumpsForPiece(SelectedPiece, SelectedPiece.IsBlack);
+                if (JumpableFields.Count == 0)
+                {
+                    NextTurn();
+                    return;
+                }
+
+                Board.DehighlightFields();
+                foreach (var jumpableField in JumpableFields)
+                {
+                    jumpableField.Highlight();
+                }
+
+                Board.SelectField(SelectedPiece.Field);
                 return;
             }
            
