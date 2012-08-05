@@ -24,7 +24,7 @@ namespace Checkers
 
         static public Canvas BoardCanvas { get; set; }
         static public Field[][] Fields { get; set; }
-        static public Piece[] Pieces { get; set; }
+        static public List<Piece> Pieces { get; set; }
 
         static public void NewBoard()
         {
@@ -38,15 +38,15 @@ namespace Checkers
                 }
             }
 
-            Pieces = new Piece[24];
+            Pieces = new List<Piece>();
             for (var i = 0; i < 12; ++i)
             {
-                Pieces[i] = new Piece(true, (i % 4) * 2 + (i / 4) % 2, (i / 4) + 5);
+                Pieces.Add(new Piece(true, (i % 4) * 2 + (i / 4) % 2, (i / 4) + 5));
             }
 
             for (var i = 12; i < 24; ++i)
             {
-                Pieces[i] = new Piece(false, (i % 4) * 2 + (i / 4) % 2, (i / 4) - 3);
+                Pieces.Add(new Piece(false, (i % 4) * 2 + (i / 4) % 2, (i / 4) - 3));
             }
 
             DrawBoard();

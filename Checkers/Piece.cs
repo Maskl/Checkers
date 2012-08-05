@@ -33,5 +33,10 @@ namespace Checkers
             else
                 Drawable.Margin = new Thickness(field.DisplayX + Board.PieceMargin, field.DisplayY + Board.PieceMargin, 0, 0);
         }
+
+        public void Destroy()
+        {
+            Drawable.Visibility = Visibility.Collapsed;
+        }
     }
 }

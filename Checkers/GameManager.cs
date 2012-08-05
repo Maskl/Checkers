@@ -33,9 +33,11 @@ namespace Checkers
 
             if (JumpableFields.Contains(field))
             {
-                SelectedPiece.SetPosition(field);
+                var enemy = Board.Fields[field.Y + (SelectedPiece.Field.Y - field.Y) / 2][field.X + (SelectedPiece.Field.X - field.X) / 2].GetPieceOnField();
+                enemy.Destroy();
+                Board.Pieces.Remove(enemy);
 
-                // kill
+                SelectedPiece.SetPosition(field);
 
                 MovableFields.Clear();
                 JumpableFields.Clear();
