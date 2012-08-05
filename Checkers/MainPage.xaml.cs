@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -123,6 +124,26 @@ namespace Checkers
         {
             var dialog = new MessageDialog("Variant: English draughts (American checkers, straight checkers).\n\nIf you never played checkers check the rules on the internet or ask somebody :)\n\nSpecific rules for the chosen variant:\n\nPieces (men):\n  - move and capture diagonally and only forward.\n  - crowned when they reach the opposite end.\n  \nKings:\n  - can move and capture also backward.\n  - the same speed as normal pieces (men).\n\nJumping:\n  - mandatory.\n  - chosen sequence does not necessarily have to be the longest one.\n  - any piece can jump a king.\n  \nWin:\n  - by capturing all of the opposing player's pieces.\n  - by leaving the opposing player with no legal moves.\n  \nDraw:\n  - if neither side can force a win. \n  - if a player offers a draw and the opponent accepts. [not avaible in current app version]\n  \nMisc:\n  - The player with the darker coloured pieces moves first.", "Rules");
             await dialog.ShowAsync();
+        }
+
+
+        public void ApplyScheme(int scheme)
+        {
+            switch (scheme)
+            {
+                case 0:
+                case 1:
+                    boardContainerGrid.Background = new SolidColorBrush(Colors.Honeydew);
+                    break;
+
+                case 2:
+                    boardContainerGrid.Background = new SolidColorBrush(Colors.Yellow);
+                    break;
+
+                case 3:
+                    boardContainerGrid.Background = new SolidColorBrush(Colors.HotPink);
+                    break;
+            }
         }
     }
 }

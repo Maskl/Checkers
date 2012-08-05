@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.Xaml.Media;
 
 namespace Checkers
 {
@@ -30,6 +36,9 @@ namespace Checkers
             SelectableFields = new List<Field>();
 
             Board.NewBoard();
+
+            LoadAndApplySelectedScheme();
+
             SelectAllCurrentPlayerPieces();
             if (IsGameVersusAI && IsPlayerBlack != BlackTurn)
                 AITurn();
@@ -317,8 +326,40 @@ namespace Checkers
             IsPlayerBlack = false;
         }
 
-        public static void SetScheme(int scheme)
+        static public void SetScheme(int scheme)
         {
+            SaveSelectedScheme(scheme);
+            Page.ApplyScheme(scheme);
+        }
+
+        static public async void SaveSelectedScheme(int scheme)
+        {
+            try
+            {
+                var folder = ApplicationData.Current.LocalFolder;
+                var file = await folder.CreateFileAsync("scheme.xml", CreationCollisionOption.ReplaceExisting);
+                await FileIO.WriteTextAsync(file, scheme.ToString());
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        static public async void LoadAndApplySelectedScheme()
+        {
+            var schemeInt = 0;
+            try
+            {
+                var folder = ApplicationData.Current.LocalFolder;
+                var file = await folder.GetFileAsync("scheme.xml");
+                var scheme = await FileIO.ReadTextAsync(file);
+                schemeInt = Convert.ToInt32(scheme);
+            }
+            catch (Exception)
+            {
+            }
+
+            Page.ApplyScheme(schemeInt);
         }
     }
 }
