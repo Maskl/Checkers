@@ -82,7 +82,7 @@ namespace Checkers
                                          StrokeThickness = 0
                                      };
 
-                piece.SetPosition(piece.Field);
+                piece.SetPosition(false, piece.Field, null);
                 BoardCanvas.Children.Add(piece.Drawable);
             }
         }

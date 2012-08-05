@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
@@ -42,11 +43,9 @@ namespace Checkers
             if (JumpableFields.Contains(field))
             {
                 var enemy = Board.Fields[field.Y + (SelectedPiece.Field.Y - field.Y) / 2][field.X + (SelectedPiece.Field.X - field.X) / 2].GetPieceOnField();
-                enemy.Destroy();
+                SelectedPiece.SetPosition(true, field, enemy);
                 Board.Pieces.Remove(enemy);
                 DrawIterator = 0;
-
-                SelectedPiece.SetPosition(field);
 
                 MovableFields.Clear();
                 JumpableFields.Clear();
@@ -69,7 +68,7 @@ namespace Checkers
 
             if (MovableFields.Contains(field) && JumpableFields.Count == 0)
             {
-                SelectedPiece.SetPosition(field);
+                SelectedPiece.SetPosition(true, field, null);
                 NextTurn();
                 return;
             }
@@ -110,9 +109,15 @@ namespace Checkers
                 AITurn();
         }
 
+        public static async void Sleep(int ms)
+        {
+           // await Task.Delay(ms);
+             new System.Threading.ManualResetEvent(false).WaitOne(ms);
+        }
+
         private static async void AITurn()
         {
-            await Task.Delay(100);
+            await Task.Delay(200);
 
             var rand = new Random();
             FieldTapped(SelectableFields[rand.Next(SelectableFields.Count)]);

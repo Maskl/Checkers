@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -30,19 +32,50 @@ namespace Checkers
             FinishY = isBlack ? 0 : 7;
         }
 
-        public void SetPosition(Field field, double? x = null, double? y = null)
+        public async void AnimableMove(Point thicknessOld, Point thicknessNew, Piece toDestroy)
         {
-            Field = field;
+            for (var i = 0; i <= 15; ++i)
+            {
+                var point = new Point((thicknessNew.X * i + thicknessOld.X * (15 - i)) / 15,
+                                        (thicknessNew.Y * i + thicknessOld.Y * (15 - i)) / 15);
 
+                Drawable.Margin = new Thickness(point.X, point.Y, 0, 0);
+                if (IsKing)
+                    KingImage.Margin = Drawable.Margin;
+
+                await Task.Delay(250 / 15);
+
+                if (i == 7 && toDestroy != null)
+                    toDestroy.Destroy();
+            }
+        }
+
+        public void SetPosition(bool animable, Field field, Piece toDestroy, double? x = null, double? y = null)
+        {
+            var thicknessOld = new Point(Drawable.Margin.Left, Drawable.Margin.Top);
+            Point thicknessNew;
             if (x != null && y != null)
-                Drawable.Margin = new Thickness((double)x + Board.PieceMargin, (double)y + Board.PieceMargin, 0, 0);
+                thicknessNew = new Point((double) x + Board.PieceMargin, (double) y + Board.PieceMargin);
             else
-                Drawable.Margin = new Thickness(field.DisplayX + Board.PieceMargin, field.DisplayY + Board.PieceMargin, 0, 0);
+                thicknessNew = new Point(field.DisplayX + Board.PieceMargin, field.DisplayY + Board.PieceMargin);
+
+            if (animable)
+            {
+                AnimableMove(thicknessOld, thicknessNew, toDestroy);
+            }
+            else
+            {
+                Drawable.Margin = new Thickness(thicknessNew.X, thicknessNew.Y, 0, 0);
+                if (IsKing)
+                    KingImage.Margin = Drawable.Margin;
+            }
+
+            Field = field;
 
             if (!IsKing && field.Y == FinishY)
             {
                 IsKing = true;
-                KingImage = new Image { Source = new BitmapImage(new Uri("ms-appx:///king.png")), Width = Drawable.Width, Height = Drawable.Height, Margin = Drawable.Margin };
+                KingImage = new Image { Source = new BitmapImage(new Uri("ms-appx:///king.png")), Width = Drawable.Width, Height = Drawable.Height };
                 Board.BoardCanvas.Children.Add(KingImage);
             }
 
