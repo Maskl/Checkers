@@ -53,6 +53,8 @@ namespace Checkers
         public void Destroy()
         {
             Drawable.Visibility = Visibility.Collapsed;
+            if (IsKing)
+                KingImage.Visibility = Visibility.Collapsed;
         }
     }
 }

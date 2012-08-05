@@ -80,7 +80,7 @@ namespace Checkers
         public async void OnGameStartQuestions()
         {
             {
-                var dialog = new MessageDialog("Would you like to play with real player or with computer?", "Game type");
+                var dialog = new MessageDialog("Would you like to play with real player or with computer?", "Starting new game");
 
                 var cmdOpt1 = new UICommand("player vs player", cmd => GameManager.SetPvP(), 1);
                 var cmdOpt2 = new UICommand("player vs computer", cmd => GameManager.SetPvAI(), 2);

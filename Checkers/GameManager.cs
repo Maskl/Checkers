@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Checkers
 {
@@ -83,6 +84,46 @@ namespace Checkers
             MovableFields.Clear();
             BlackTurn = !BlackTurn;
             SelectAllCurrentPlayerPieces();
+            if (SelectableFields.Count == 0)
+                EndOfGame();
+        }
+
+        private static async void EndOfGame()
+        {
+            string msg;
+            string tit;
+            if (IsGameVersusAI)
+            {
+                if (BlackTurn && IsPlayerBlack)
+                {
+                    msg = "Computer won that game. Try again.";
+                    tit = "Loser!";
+                }
+                else
+                {
+                    msg = "Congratulation, you won with computer!";
+                    tit = "Winner!";
+                }
+            }
+            else
+            {
+                if (BlackTurn)
+                {
+                    msg = "Player who played lightener pieces won. Congratulation!";
+                    tit = "Light pieces won!";
+                }
+                else
+                {
+                    msg = "Player who played darkener pieces won. Congratulation!";
+                    tit = "Dark pieces won!";
+                }
+            }
+
+            var dialog = new MessageDialog(msg, tit);
+            await dialog.ShowAsync();
+
+            Page.OnGameStartQuestions();
+            NewGame();
         }
 
         private static void SelectAllCurrentPlayerPieces()
