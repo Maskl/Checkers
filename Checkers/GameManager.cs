@@ -8,11 +8,14 @@ namespace Checkers
 {
     class GameManager
     {
-        static public bool BlackTurn;
-        static public Piece SelectedPiece;
-        static public List<Field> JumpableFields;
-        static public List<Field> MovableFields;
-        static public List<Field> SelectableFields;
+        public static MainPage Page { get; set; }
+        static public bool BlackTurn { get; set; }
+        static public Piece SelectedPiece { get; set; }
+        static public List<Field> JumpableFields { get; set; }
+        static public List<Field> MovableFields { get; set; }
+        static public List<Field> SelectableFields { get; set; }
+        static public bool IsGameVersusAI { get; set; }
+        static public bool IsPlayerBlack { get; set; }
 
         static public void Start()
         {
@@ -196,6 +199,35 @@ namespace Checkers
             {
                 JumpableFields.Add(jumpField);
             }
+        }
+
+        public static void NewGame()
+        {
+            Start();
+        }
+
+        public static void SetPvP()
+        {
+            IsGameVersusAI = false;
+        }
+
+        public static void SetPvAI()
+        {
+            IsGameVersusAI = true;
+        }
+
+        public static void SetPlayerBlack()
+        {
+            IsPlayerBlack = true;
+        }
+
+        public static void SetPlayerWhite()
+        {
+            IsPlayerBlack = false;
+        }
+
+        public static void SetScheme(int scheme)
+        {
         }
     }
 }

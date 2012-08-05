@@ -39,4 +39,38 @@
         	<Canvas x:Name="boardCanvas" Width="532" Height="532" Background="#FFD61D1D" Tapped="BoardCanvasTapped"/>
         </Grid>
     </Grid>
+    
+    <!-- Bottom appbar -->
+    <Page.BottomAppBar>
+        <AppBar
+            x:Name="bottomAppBar"
+            Padding="10,0,10,0">
+            <Grid>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left">
+                  
+                    <Button
+                        AutomationProperties.Name="New Game"
+                        Style="{StaticResource HomeAppBarButtonStyle}"
+                        Click="NewGameButton_OnClick"/>
+               
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                    
+                    <Button
+                        AutomationProperties.Name="Colors"
+                        Style="{StaticResource SettingsAppBarButtonStyle}"
+                        Click="ColorsButton_OnClick"/>
+
+                    <Button
+                        AutomationProperties.Name="Rules"
+                        Style="{StaticResource HelpAppBarButtonStyle}"
+                        Click="HelpButton_OnClick"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>
