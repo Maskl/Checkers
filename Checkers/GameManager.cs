@@ -118,12 +118,6 @@ namespace Checkers
                 AITurn();
         }
 
-        public static async void Sleep(int ms)
-        {
-           // await Task.Delay(ms);
-             new System.Threading.ManualResetEvent(false).WaitOne(ms);
-        }
-
         private static async void AITurn()
         {
             await Task.Delay(200);
@@ -147,7 +141,7 @@ namespace Checkers
 
         private static async void DrawGame()
         {
-            var dialog = new MessageDialog("Probably nobody will win this game.", "Draw!");
+            var dialog = new MessageDialog("Probably no one will win this game.", "Draw!");
             await dialog.ShowAsync();
 
             Page.OnGameStartQuestions();
@@ -161,12 +155,12 @@ namespace Checkers
             {
                 if (BlackTurn != IsPlayerBlack)
                 {
-                    msg = "Congratulation, you won with computer!";
+                    msg = "Congratulation, you beat the computer!";
                     tit = "Winner!";
                 }
                 else
                 {
-                    msg = "Computer won that game. Try again.";
+                    msg = "Computer won this game. Try again.";
                     tit = "Loser!";
                 }
             }
@@ -174,13 +168,13 @@ namespace Checkers
             {
                 if (BlackTurn)
                 {
-                    msg = "Player who played lightener pieces won. Congratulation!";
-                    tit = "Light pieces won!";
+                    msg = "Lighter pieces won. Congratulation!";
+                    tit = "End of the game!";
                 }
                 else
                 {
-                    msg = "Player who played darkener pieces won. Congratulation!";
-                    tit = "Dark pieces won!";
+                    msg = "Darker pieces won. Congratulation!";
+                    tit = "End of the game!";
                 }
             }
 

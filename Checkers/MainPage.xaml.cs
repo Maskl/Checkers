@@ -59,7 +59,7 @@ namespace Checkers
         private async void NewGameButton_OnClick(object sender, RoutedEventArgs e)
         {
             _shouldStartNewGame = false;
-            var dialog = new MessageDialog("Are you sure you want to end this game and start a new one?", "New Game");
+            var dialog = new MessageDialog("Are you sure you want to end this game and start a new one?", "New Game?");
 
             var cmdNo = new UICommand("No", cmd => _shouldStartNewGame = false, 1);
             var cmdYes = new UICommand("Yes", cmd => _shouldStartNewGame = true, 2);
@@ -79,7 +79,7 @@ namespace Checkers
         public async void OnGameStartQuestions()
         {
             {
-                var dialog = new MessageDialog("Would you like to play with real player or with computer?", "Starting new game");
+                var dialog = new MessageDialog("Would you like to play with real player or computer?", "Starting a new game");
 
                 var cmdOpt1 = new UICommand("player vs player", cmd => GameManager.SetPvP(), 1);
                 var cmdOpt2 = new UICommand("player vs computer", cmd => GameManager.SetPvAI(), 2);
@@ -93,7 +93,7 @@ namespace Checkers
 
             if (GameManager.IsGameVersusAI)
             {
-                var dialog = new MessageDialog("Select color of your pieces (player with the darker coloured pieces moves first).", "Color");
+                var dialog = new MessageDialog("Select the color of your pieces.\n(Darker coloured pieces moves first)", "Color");
                 var cmdOpt1 = new UICommand("dark", cmd => GameManager.SetPlayerBlack(), 1);
                 var cmdOpt2 = new UICommand("light", cmd => GameManager.SetPlayerWhite(), 2);
 
@@ -109,7 +109,7 @@ namespace Checkers
 
         private async void ColorsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var dialog = new MessageDialog("Choose one of options below.", "Color scheme");
+            var dialog = new MessageDialog("Select one of options below.", "Color scheme");
 
             var cmdOpt1 = new UICommand("metro", cmd => GameManager.SetScheme(1), 1);
             var cmdOpt2 = new UICommand("wood", cmd => GameManager.SetScheme(2), 2);

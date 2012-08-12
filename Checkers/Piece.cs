@@ -21,6 +21,7 @@ namespace Checkers
         public int AnimStep { get; set; }
         public int Direction { get; set; }
         public int FinishY { get; set; }
+        public string KingUrlString { get; set; }
 
         public Piece(bool isBlack, int x, int y)
         {
@@ -30,6 +31,7 @@ namespace Checkers
             AnimStep = 0;
             Direction = isBlack ? -1 : 1;
             FinishY = isBlack ? 0 : 7;
+            KingUrlString = isBlack ? "ms-appx:///kingW.png" : "ms-appx:///kingB.png";
         }
 
         public async void AnimableMove(Point thicknessOld, Point thicknessNew, Piece toDestroy)
@@ -75,7 +77,7 @@ namespace Checkers
             if (!IsKing && field.Y == FinishY)
             {
                 IsKing = true;
-                KingImage = new Image { Source = new BitmapImage(new Uri("ms-appx:///king.png")), Width = Drawable.Width, Height = Drawable.Height };
+                KingImage = new Image { Source = new BitmapImage(new Uri(KingUrlString)), Width = Drawable.Width, Height = Drawable.Height };
                 Board.BoardCanvas.Children.Add(KingImage);
             }
 
@@ -92,10 +94,11 @@ namespace Checkers
 
         public void Update()
         {
+            IsKing = true;
             if (!IsKing)
                 return;
 
-            KingImage = new Image { Source = new BitmapImage(new Uri("ms-appx:///king.png")), Width = Drawable.Width, Height = Drawable.Height };
+            KingImage = new Image { Source = new BitmapImage(new Uri(KingUrlString)), Width = Drawable.Width, Height = Drawable.Height };
             Board.BoardCanvas.Children.Add(KingImage);
             KingImage.Margin = Drawable.Margin;
         }

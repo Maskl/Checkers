@@ -127,7 +127,8 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="king.png" />
+    <Content Include="kingB.png" />
+    <Content Include="kingW.png" />
     <Content Include="wood.png" />
   </ItemGroup>
   <ItemGroup>
