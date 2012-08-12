@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -135,17 +136,40 @@ namespace Checkers
             {
                 case 0:
                 case 1:
-                    boardContainerGrid.Background = new SolidColorBrush(Colors.Honeydew);
+                    MainGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x1D, 0x1D));
+                    pageTitle.Foreground = new SolidColorBrush(Color.FromArgb(0xDE, 0xFF, 0xFF, 0xFF));
+                    Board.LightFieldColor = Color.FromArgb(0xFF, 0xCD, 0xCD, 0xCD);
+                    Board.DarkFieldColor = Color.FromArgb(0xFF, 0x6D, 0x6D, 0x6D);
+                    Board.SelectedFieldColor = Color.FromArgb(0xFF, 0x6D, 0xCD, 0x6D);
+                    Board.HighlightedFieldColor = Color.FromArgb(0xFF, 0x1D, 0x1D, 0x1D);
+                    Board.WhitePieceColor = Color.FromArgb(0xFF, 0xFD, 0xFD, 0xFD);
+                    Board.BlackPieceColor = Color.FromArgb(0xFF, 0x6D, 0x1D, 0x1D);
                     break;
 
                 case 2:
-                    boardContainerGrid.Background = new SolidColorBrush(Colors.Yellow);
+                    MainGrid.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("ms-appx:///wood.png")), Stretch = Stretch.UniformToFill };
+                    pageTitle.Foreground = new SolidColorBrush(Color.FromArgb(0xDE, 0x33, 0x33, 0x33));
+                    Board.LightFieldColor = Color.FromArgb(0xFF, 0xCC, 0xCC, 0xCC);
+                    Board.DarkFieldColor = Color.FromArgb(0xFF, 0x55, 0x55, 0x55);
+                    Board.SelectedFieldColor = Color.FromArgb(0xFF, 0x11, 0x11, 0x11);
+                    Board.HighlightedFieldColor = Color.FromArgb(0xFF, 0x11, 0x11, 0x11);
+                    Board.WhitePieceColor = Color.FromArgb(0xFF, 0xDD, 0xDD, 0xAA);
+                    Board.BlackPieceColor = Color.FromArgb(0xFF, 0x88, 0x11, 0x11);
                     break;
 
                 case 3:
-                    boardContainerGrid.Background = new SolidColorBrush(Colors.HotPink);
+                    MainGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00));
+                    pageTitle.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+                    Board.LightFieldColor = Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF);
+                    Board.DarkFieldColor = Color.FromArgb(0xFF, 0x66, 0x66, 0x66);
+                    Board.SelectedFieldColor = Color.FromArgb(0xFF, 0x00, 0xFF, 0x00);
+                    Board.HighlightedFieldColor = Color.FromArgb(0xFF, 0x00, 0x00, 0x00);
+                    Board.WhitePieceColor = Color.FromArgb(0xFF, 0xFF, 0xFF, 0x00);
+                    Board.BlackPieceColor = Color.FromArgb(0xFF, 0xFF, 0x00, 0x00);
                     break;
             }
+
+            Board.DrawBoard(true);
         }
 
         private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
@@ -163,6 +187,15 @@ namespace Checkers
 
             var s = Math.Min(x, y);
 
+            boardBorder.Width = s;
+            boardBorder.Height = s;
+
+            var mrg = pageTitle.Margin;
+            mrg.Left = (size.Width - s) / 2;
+            pageTitle.Margin = mrg;
+
+            s -= 2;
+
             boardCanvas.Width = s;
             boardCanvas.Height = s;
 
@@ -170,14 +203,7 @@ namespace Checkers
             Board.FieldSize = Board.BoardSize / 8;
             Board.PieceMargin = Board.FieldSize / 10;
 
-            Board.DrawBoard();
-         //  Board.ChangeSize();
-
-            var viewState = ApplicationView.Value;
-            if (viewState == ApplicationViewState.Snapped)
-            {
-                return;
-            }
+            Board.DrawBoard(false);
         }
     }
 }

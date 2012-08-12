@@ -49,7 +49,7 @@ namespace Checkers
                 Pieces.Add(new Piece(false, (i % 4) * 2 + (i / 4) % 2, (i / 4) - 3));
             }
 
-            DrawBoard();
+            DrawBoard(false);
         }
 
         static public void ChangeSize()
@@ -76,7 +76,7 @@ namespace Checkers
             }
         }
 
-        static public void DrawBoard()
+        static public void DrawBoard(bool schemeChange)
         {
             if (Fields == null)
                 return;
@@ -91,8 +91,8 @@ namespace Checkers
                     field.Update();
 
                     Brush fill = new SolidColorBrush((x + y) % 2 == 1 ? DarkFieldColor : LightFieldColor);
-                    var strokeTh = 0.0d;
-                    if (field.Drawable != null)
+                    var strokeTh = 1.0;
+                    if (field.Drawable != null && !schemeChange)
                     {
                         fill = field.Drawable.Fill;
                         strokeTh = field.Drawable.StrokeThickness;
@@ -119,7 +119,8 @@ namespace Checkers
                                          Fill = new SolidColorBrush(piece.IsBlack ? BlackPieceColor : WhitePieceColor),
                                          Height = FieldSize - PieceMargin * 2,
                                          Width = FieldSize - PieceMargin * 2,
-                                         StrokeThickness = 0
+                                         StrokeThickness = 1,
+                                         Stroke = new SolidColorBrush(HighlightedFieldColor)
                                      };
 
                 piece.SetPosition(false, piece.Field, null);

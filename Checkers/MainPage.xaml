@@ -9,6 +9,7 @@
     mc:Ignorable="d">
 
     <Grid
+        x:Name="MainGrid"
         Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition
@@ -21,7 +22,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="36" />
+                    Width="0" />
                 <ColumnDefinition
                     Width="*" />
             </Grid.ColumnDefinitions>
@@ -29,13 +30,29 @@
                 x:Name="pageTitle"
                 Text="Checkers"
                 Grid.Column="1"
-                Style="{StaticResource PageHeaderTextStyle}" />
+                Style="{StaticResource PageHeaderTextStyle}" Margin="0,0,0,40" />
         </Grid>
-        <Grid x:Name="boardContainerGrid" Grid.Row="1" Margin="36,36,36,60">
-        	<Canvas x:Name="boardCanvas" Width="532" Height="532" Background="#FF1D1D1D" Tapped="BoardCanvasTapped"/>
+
+        <Grid
+            x:Name="boardContainerGrid"
+            Grid.Row="1"
+            Margin="36,0,36,60">
+            <Border
+                x:Name="boardBorder"
+                BorderBrush="#FF1D1D1D"
+                BorderThickness="1"
+                Width="532"
+                Height="532">
+                <Canvas
+                    x:Name="boardCanvas"
+                    Background="#FF1D1D1D"
+                    Tapped="BoardCanvasTapped"
+                    Width="530"
+                    Height="530" />
+            </Border>
         </Grid>
     </Grid>
-    
+
     <!-- Bottom appbar -->
     <Page.BottomAppBar>
         <AppBar
@@ -45,26 +62,26 @@
                 <StackPanel
                     Orientation="Horizontal"
                     HorizontalAlignment="Left">
-                  
+
                     <Button
                         AutomationProperties.Name="New Game"
                         Style="{StaticResource HomeAppBarButtonStyle}"
-                        Click="NewGameButton_OnClick"/>
-               
+                        Click="NewGameButton_OnClick" />
+
                 </StackPanel>
                 <StackPanel
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
-                    
+
                     <Button
                         AutomationProperties.Name="Colors"
                         Style="{StaticResource SettingsAppBarButtonStyle}"
-                        Click="ColorsButton_OnClick"/>
+                        Click="ColorsButton_OnClick" />
 
                     <Button
                         AutomationProperties.Name="Rules"
                         Style="{StaticResource HelpAppBarButtonStyle}"
-                        Click="HelpButton_OnClick"/>
+                        Click="HelpButton_OnClick" />
                 </StackPanel>
             </Grid>
         </AppBar>

@@ -46,7 +46,7 @@ namespace Checkers
 
         public void Dehighlight()
         {
-            Drawable.StrokeThickness = 0;
+            Drawable.StrokeThickness = 1;
         }
 
         public void Highlight()
