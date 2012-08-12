@@ -23,6 +23,12 @@ namespace Checkers
             DisplayY = Board.BoardSize / 8 * y;
         }
 
+        public void Update()
+        {
+            DisplayX = Board.BoardSize / 8 * X;
+            DisplayY = Board.BoardSize / 8 * Y;
+        }
+
         public bool IsUsableInGame()
         {
             return (X + Y) % 2 == 1;

@@ -52,6 +52,28 @@ namespace Checkers
             DrawBoard();
         }
 
+        static public void ChangeSize()
+        {
+            for (var y = 0; y < 8; y++)
+            {
+                Fields[y] = new Field[8];
+                for (var x = 0; x < 8; x++)
+                {
+                    var field = Fields[y][x];
+                    field.Update();
+                    field.Drawable = new Rectangle
+                                         {
+                                             Fill =
+                                                 new SolidColorBrush((x + y)%2 == 1 ? DarkFieldColor : LightFieldColor),
+                                             Margin = new Thickness(field.DisplayX, field.DisplayY, 0, 0),
+                                             Height = FieldSize,
+                                             Width = FieldSize,
+                                             StrokeThickness = 0
+                                         };
+                }
+            }
+        }
+
         static public void DrawBoard()
         {
             for (var y = 0; y < 8; y++)

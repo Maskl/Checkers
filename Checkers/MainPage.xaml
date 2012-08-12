@@ -36,7 +36,7 @@
                 Style="{StaticResource PageHeaderTextStyle}" />
         </Grid>
         <Grid x:Name="boardContainerGrid" Grid.Row="1" Margin="36,36,36,60">
-        	<Canvas x:Name="boardCanvas" Width="532" Height="532" Background="#FFD61D1D" Tapped="BoardCanvasTapped"/>
+        	<Canvas x:Name="boardCanvas" Width="532" Height="532" Background="#FF1D1D1D" Tapped="BoardCanvasTapped"/>
         </Grid>
     </Grid>
     

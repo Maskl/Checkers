@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,7 @@ namespace Checkers
 
         public MainPage()
         {
+            Window.Current.SizeChanged += WindowSizeChanged; 
             InitializeComponent();
 
             Board.BoardCanvas = boardCanvas;
@@ -143,6 +145,22 @@ namespace Checkers
                 case 3:
                     boardContainerGrid.Background = new SolidColorBrush(Colors.HotPink);
                     break;
+            }
+        }
+
+        private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            boardCanvas.Width = boardContainerGrid.Width;
+            boardCanvas.Height = boardContainerGrid.Height;
+            Board.BoardSize = boardCanvas.Width;
+            Board.FieldSize = Board.BoardSize / 8;
+
+       //     Board.ChangeSize();
+
+            var viewState = ApplicationView.Value;
+            if (viewState == ApplicationViewState.Snapped)
+            {
+                return;
             }
         }
     }
