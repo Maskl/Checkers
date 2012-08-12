@@ -26,20 +26,20 @@ namespace Checkers
 
         public MainPage()
         {
-            Window.Current.SizeChanged += WindowSizeChanged; 
+            Window.Current.SizeChanged += WindowSizeChanged;
             InitializeComponent();
+            ResizeAll(new Size(Window.Current.Bounds.Width, Window.Current.Bounds.Height));
 
             Board.BoardCanvas = boardCanvas;
-            Board.BoardSize = 532;
-            Board.FieldSize = Board.BoardSize / 8;
+            
             Board.LightFieldColor = Colors.Wheat;
             Board.DarkFieldColor = Colors.DarkGoldenrod;
             Board.SelectedFieldColor = Colors.Maroon;
             Board.HighlightedFieldColor = Colors.Green;
             Board.WhitePieceColor = Colors.Yellow;
             Board.BlackPieceColor = Colors.Blue;
+
             Board.KingImage = 0;
-            Board.PieceMargin = Board.FieldSize / 10;
 
             GameManager.Page = this;
             OnGameStartQuestions();
@@ -150,12 +150,28 @@ namespace Checkers
 
         private void WindowSizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {
-            boardCanvas.Width = boardContainerGrid.Width;
-            boardCanvas.Height = boardContainerGrid.Height;
-            Board.BoardSize = boardCanvas.Width;
-            Board.FieldSize = Board.BoardSize / 8;
+            ResizeAll(e.Size);
+        }
 
-       //     Board.ChangeSize();
+        private void ResizeAll(Size size)
+        {
+           // Board.BoardSize = 532;
+
+
+            var x = size.Width - 36 - 36;
+            var y = size.Height - 140 - 36 - 60;
+
+            var s = Math.Min(x, y);
+
+            boardCanvas.Width = s;
+            boardCanvas.Height = s;
+
+            Board.BoardSize = s;
+            Board.FieldSize = Board.BoardSize / 8;
+            Board.PieceMargin = Board.FieldSize / 10;
+
+            Board.DrawBoard();
+         //  Board.ChangeSize();
 
             var viewState = ApplicationView.Value;
             if (viewState == ApplicationViewState.Snapped)

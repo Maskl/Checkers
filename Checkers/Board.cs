@@ -54,9 +54,11 @@ namespace Checkers
 
         static public void ChangeSize()
         {
+            if (Fields == null)
+                return;
+
             for (var y = 0; y < 8; y++)
             {
-                Fields[y] = new Field[8];
                 for (var x = 0; x < 8; x++)
                 {
                     var field = Fields[y][x];
@@ -76,18 +78,33 @@ namespace Checkers
 
         static public void DrawBoard()
         {
+            if (Fields == null)
+                return;
+
+            BoardCanvas.Children.Clear();
+
             for (var y = 0; y < 8; y++)
             {
                 for (var x = 0; x < 8; x++)
                 {
                     var field = Fields[y][x];
+                    field.Update();
+
+                    Brush fill = new SolidColorBrush((x + y) % 2 == 1 ? DarkFieldColor : LightFieldColor);
+                    var strokeTh = 0.0d;
+                    if (field.Drawable != null)
+                    {
+                        fill = field.Drawable.Fill;
+                        strokeTh = field.Drawable.StrokeThickness;
+                    }
                     field.Drawable = new Rectangle
                                          {
-                                             Fill = new SolidColorBrush((x + y) % 2 == 1 ? DarkFieldColor : LightFieldColor),
+                                             Fill = fill,
                                              Margin = new Thickness(field.DisplayX, field.DisplayY, 0, 0),
                                              Height = FieldSize,
                                              Width = FieldSize,
-                                             StrokeThickness = 0
+                                             StrokeThickness = strokeTh,
+                                             Stroke = new SolidColorBrush(HighlightedFieldColor)
                                          };
 
                     BoardCanvas.Children.Add(field.Drawable);

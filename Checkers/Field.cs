@@ -52,7 +52,6 @@ namespace Checkers
         public void Highlight()
         {
             Drawable.StrokeThickness = 3;
-            Drawable.Stroke = new SolidColorBrush(Board.HighlightedFieldColor);
         }
 
         public Piece GetPieceOnField()
