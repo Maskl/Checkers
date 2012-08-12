@@ -97,6 +97,7 @@ namespace Checkers
                         fill = field.Drawable.Fill;
                         strokeTh = field.Drawable.StrokeThickness;
                     }
+
                     field.Drawable = new Rectangle
                                          {
                                              Fill = fill,
@@ -123,6 +124,7 @@ namespace Checkers
 
                 piece.SetPosition(false, piece.Field, null);
                 BoardCanvas.Children.Add(piece.Drawable);
+                piece.Update();
             }
         }
 

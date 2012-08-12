@@ -21,14 +21,10 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="Auto" />
+                    Width="36" />
                 <ColumnDefinition
                     Width="*" />
             </Grid.ColumnDefinitions>
-            <Button
-                x:Name="backButton"
-                IsEnabled="False"
-                Style="{StaticResource BackButtonStyle}" />
             <TextBlock
                 x:Name="pageTitle"
                 Text="Checkers"

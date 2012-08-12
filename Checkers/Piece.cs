@@ -89,5 +89,15 @@ namespace Checkers
             if (IsKing)
                 KingImage.Visibility = Visibility.Collapsed;
         }
+
+        public void Update()
+        {
+            if (!IsKing)
+                return;
+
+            KingImage = new Image { Source = new BitmapImage(new Uri("ms-appx:///king.png")), Width = Drawable.Width, Height = Drawable.Height };
+            Board.BoardCanvas.Children.Add(KingImage);
+            KingImage.Margin = Drawable.Margin;
+        }
     }
 }
