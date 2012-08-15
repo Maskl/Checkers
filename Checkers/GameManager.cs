@@ -155,7 +155,7 @@ namespace Checkers
             {
                 if (BlackTurn != IsPlayerBlack)
                 {
-                    msg = "Congratulation, you beat the computer!";
+                    msg = "Congratulations, you beat the computer!";
                     tit = "Winner!";
                 }
                 else
@@ -168,12 +168,12 @@ namespace Checkers
             {
                 if (BlackTurn)
                 {
-                    msg = "Lighter pieces won. Congratulation!";
+                    msg = "Lighter pieces won. Congratulations!";
                     tit = "End of the game!";
                 }
                 else
                 {
-                    msg = "Darker pieces won. Congratulation!";
+                    msg = "Darker pieces won. Congratulations!";
                     tit = "End of the game!";
                 }
             }

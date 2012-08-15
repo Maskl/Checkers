@@ -94,7 +94,6 @@ namespace Checkers
 
         public void Update()
         {
-            IsKing = true;
             if (!IsKing)
                 return;
 

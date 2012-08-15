@@ -134,18 +134,18 @@ namespace Checkers
         {
             switch (scheme)
             {
-                case 0:
                 case 1:
-                    MainGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x1D, 0x1D, 0x1D));
+                    MainGrid.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0x00, 0x00));
                     pageTitle.Foreground = new SolidColorBrush(Color.FromArgb(0xDE, 0xFF, 0xFF, 0xFF));
-                    Board.LightFieldColor = Color.FromArgb(0xFF, 0xCD, 0xCD, 0xCD);
-                    Board.DarkFieldColor = Color.FromArgb(0xFF, 0x6D, 0x6D, 0x6D);
-                    Board.SelectedFieldColor = Color.FromArgb(0xFF, 0x6D, 0xCD, 0x6D);
-                    Board.HighlightedFieldColor = Color.FromArgb(0xFF, 0x1D, 0x1D, 0x1D);
+                    Board.LightFieldColor = Color.FromArgb(0xFF, 0xCD, 0xCD, 0xDD);
+                    Board.DarkFieldColor = Color.FromArgb(0xFF, 0x1D, 0x1D, 0xAD);
+                    Board.SelectedFieldColor = Color.FromArgb(0xFF, 0xCD, 0xCD, 0x00);
+                    Board.HighlightedFieldColor = Color.FromArgb(0xFF, 0x00, 0x00, 0x00);
                     Board.WhitePieceColor = Color.FromArgb(0xFF, 0xFD, 0xFD, 0xFD);
-                    Board.BlackPieceColor = Color.FromArgb(0xFF, 0x6D, 0x1D, 0x1D);
+                    Board.BlackPieceColor = Color.FromArgb(0xFF, 0xCD, 0x1D, 0x1D);
                     break;
 
+                case 0:
                 case 2:
                     MainGrid.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("ms-appx:///wood.png")), Stretch = Stretch.UniformToFill };
                     pageTitle.Foreground = new SolidColorBrush(Color.FromArgb(0xDE, 0x33, 0x33, 0x33));
