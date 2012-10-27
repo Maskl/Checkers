@@ -36,20 +36,20 @@
   </PostinstrumentEvent>
   <Binaries>
     <ProjBinary>
-      <Path>Checkers\obj\Debug\Checkers.exe</Path>
+      <Path>Checkers\obj\Release\Checkers.exe</Path>
       <ArgumentTimestamp>01/01/0001 00:00:00</ArgumentTimestamp>
       <Instrument>true</Instrument>
       <Sample>true</Sample>
       <ExternalWebsite>false</ExternalWebsite>
       <InteractionProfilingEnabled>false</InteractionProfilingEnabled>
       <IsLocalJavascript>false</IsLocalJavascript>
-      <IsMetro>true</IsMetro>
+      <IsWindowsStoreApp>true</IsWindowsStoreApp>
       <IsWWA>false</IsWWA>
       <LaunchProject>true</LaunchProject>
       <OverrideProjectSettings>false</OverrideProjectSettings>
       <LaunchMethod>Executable</LaunchMethod>
-      <ExecutablePath>Checkers\bin\Debug\Checkers.exe</ExecutablePath>
-      <StartupDirectory>Checkers\bin\Debug\</StartupDirectory>
+      <ExecutablePath>Checkers\bin\Release\Checkers.exe</ExecutablePath>
+      <StartupDirectory>Checkers\bin\Release\</StartupDirectory>
       <Arguments>
       </Arguments>
       <NetAppHost>IIS</NetAppHost>
